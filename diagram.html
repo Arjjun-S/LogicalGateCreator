@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Diagram Creator • Virtual Logic Gate Creator</title>
+    <link rel="stylesheet" href="./style.css" />
+    <style>
+      .diagram-toolbar { display: grid; gap: 12px; grid-template-columns: 1fr auto; }
+      .diagram-input { width: 100%; padding: 10px 12px; border-radius: 10px; border: 1px solid var(--outline); background:#0b1220; color: var(--text); }
+      .diagram-help { color: var(--muted); margin: 0; font-size: 0.95rem; }
+      .diagram-stage { margin-top: 16px; background: rgba(255,255,255,0.02); border:1px solid var(--outline); border-radius: var(--radius); padding: 12px; overflow:auto; }
+      .button-link { display:inline-block; border:1px solid var(--outline); padding:10px 12px; border-radius:10px; color: var(--text); text-decoration:none; transition: border-color 200ms ease; }
+      .button-link:hover { border-color: var(--accent); }
+      svg text { font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, Noto Sans, Helvetica Neue, Arial; fill: var(--text); font-size: 12px; }
+      .gate { fill: none; stroke: #9ca3af; stroke-width: 2; }
+      .wire { stroke: #60a5fa; stroke-width: 2; fill: none; }
+    </style>
+  </head>
+  <body>
+    <header class="site-header">
+      <h1>Diagram Creator</h1>
+      <p class="tagline">Interactive simulation for learning logic gates</p>
+    </header>
+
+    <main class="page-main">
+      <section class="card" aria-labelledby="diagram-creator">
+        <h2 id="diagram-creator">Build from Boolean Expression</h2>
+
+        <div class="diagram-toolbar">
+          <input id="expr" class="diagram-input" placeholder="Enter expression, e.g., A.B + !C or (A+B).!A" />
+          <a class="button-link" href="./index.html">← Gates Explorer</a>
+        </div>
+        <p class="diagram-help">
+          Syntax: use A, B, C variables. Operators: '.' (AND), '+' (OR), '!' (NOT), parentheses '()'.
+        </p>
+
+        <div class="diagram-stage" id="stage" role="img" aria-label="Logic diagram"></div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <p>Interactive simulation for learning logic gates • Built with HTML, CSS, and JavaScript.</p>
+    </footer>
+
+    <script src="./script.js"></script>
+    <script src="./diagram.js"></script>
+  </body>
+</html>
