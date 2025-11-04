@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Logic Gates • COA Simulator</title>
+    <link rel="stylesheet" href="./style.css" />
+  </head>
+  <body>
+    <header class="site-header">
+      <h1>Logic Gates</h1>
+      <p class="tagline">Toggle inputs, see outputs, and view truth tables</p>
+      <nav class="top-nav" aria-label="Primary">
+        <a href="./index.html">Home</a>
+        <a href="./logic.html" aria-current="page">Logic Gates</a>
+        <a href="./diagram.html">Diagram Creator</a>
+        <a href="./number-system.html">Number System</a>
+        <a href="./adders.html">Adders</a>
+        <a href="./binary-arithmetic.html">Binary Arithmetic</a>
+      </nav>
+      <nav class="sub-nav" aria-label="Gate Switcher">
+        <a href="#" data-gate="AND">AND</a>
+        <a href="#" data-gate="OR">OR</a>
+        <a href="#" data-gate="NOT">NOT</a>
+        <a href="#" data-gate="XOR">XOR</a>
+        <a href="#" data-gate="NAND">NAND</a>
+        <a href="#" data-gate="NOR">NOR</a>
+        <a href="#" data-gate="XNOR">XNOR</a>
+      </nav>
+    </header>
+
+    <main class="page-main">
+      <section class="card" aria-labelledby="gate-view">
+        <h2 id="gate-view">Gate</h2>
+        <div id="activeGate" class="gate-view"></div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <p>COA Simulator • Built with HTML, CSS, and JavaScript.</p>
+    </footer>
+
+    <script src="./script.js"></script>
+    <script src="./logic.js"></script>
+  </body>
+</html>

@@ -3,14 +3,14 @@
 // - Pure JS Boolean ops, easy to extend
 (function attachLogicGates(global) {
   const list = [
-    { key: 'AND', label: 'AND (∧)', arity: 2, desc: 'Output is TRUE only if both inputs are TRUE.' },
-    { key: 'OR', label: 'OR (∨)', arity: 2, desc: 'Output is TRUE if at least one input is TRUE.' },
-    { key: 'NOT', label: 'NOT (¬)', arity: 1, desc: 'Inverts the input: TRUE becomes FALSE and vice versa.' },
+    { key: 'AND', label: 'AND (∧)', arity: 2, desc: 'Outputs 1 only when both inputs are 1. In Boolean algebra this is the product A·B. Commutative and associative; forms the basis of conjunction.' },
+    { key: 'OR', label: 'OR (∨)', arity: 2, desc: 'Outputs 1 when at least one input is 1. In Boolean algebra this is the sum A + B. Commutative and associative; represents logical disjunction.' },
+    { key: 'NOT', label: 'NOT (¬)', arity: 1, desc: 'Inverts the input bit (complement). If A=1 then ¬A=0 and vice versa. Double negation returns the original value.' },
     // Optional common gates
-    { key: 'XOR', label: 'XOR (⊕)', arity: 2, desc: 'TRUE when inputs differ.' },
-    { key: 'NAND', label: 'NAND', arity: 2, desc: 'Negation of AND: FALSE only if both inputs are TRUE.' },
-    { key: 'NOR', label: 'NOR', arity: 2, desc: 'Negation of OR: TRUE only if both inputs are FALSE.' },
-    { key: 'XNOR', label: 'XNOR (≡)', arity: 2, desc: 'TRUE when inputs are equal.' },
+    { key: 'XOR', label: 'XOR (⊕)', arity: 2, desc: 'Outputs 1 when inputs differ (odd parity). Acts like addition without carry: S = A ⊕ B. Useful for parity and adders.' },
+    { key: 'NAND', label: 'NAND', arity: 2, desc: 'Negation of AND: 0 only when both inputs are 1. Functionally complete: any circuit can be built using only NAND gates.' },
+    { key: 'NOR', label: 'NOR', arity: 2, desc: 'Negation of OR: 1 only when both inputs are 0. Also functionally complete; often used in simple latch designs.' },
+    { key: 'XNOR', label: 'XNOR (≡)', arity: 2, desc: 'Outputs 1 when inputs are equal (even parity). Acts as an equality detector between two bits.' },
   ];
 
   const map = {

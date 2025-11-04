@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Binary Arithmetic • COA Simulator</title>
+    <link rel="stylesheet" href="./style.css" />
+  </head>
+  <body>
+    <header class="site-header">
+      <h1>Binary Arithmetic</h1>
+      <p class="tagline">Add, subtract, multiply, divide – with classic algorithms explained</p>
+      <nav class="top-nav" aria-label="Primary">
+        <a href="./index.html">Home</a>
+        <a href="./logic.html">Logic Gates</a>
+        <a href="./diagram.html">Diagram Creator</a>
+        <a href="./number-system.html">Number System</a>
+        <a href="./adders.html">Adders</a>
+        <a href="./binary-arithmetic.html" aria-current="page">Binary Arithmetic</a>
+      </nav>
+      <nav class="sub-nav" aria-label="Binary Arithmetic Sub Navigation">
+        <a href="#teach">Teach</a>
+        <a href="#calculator">Calculator</a>
+        <a href="#restoring">Restoring</a>
+        <a href="#non">Non</a>
+        <a href="#bitpair">Bitpair</a>
+        <a href="#booth">Booth</a>
+      </nav>
+    </header>
+
+    <main class="page-main">
+      <section id="teach" class="card">
+        <h2>Teach</h2>
+        <div class="helper-box">
+          <p><strong>Learn by steps:</strong> Select an operation, enter A and B (binary), then step through the solution.</p>
+        </div>
+        <div class="controls" style="display:flex;gap:8px;flex-wrap:wrap;justify-content:center;align-items:center;">
+          <label class="switch-label" for="baOp">Operation</label>
+          <select id="baOp" class="diagram-input" style="max-width:220px;">
+            <option value="add" selected>Addition</option>
+            <option value="sub">Subtraction</option>
+            <option value="mul">Multiplication</option>
+            <option value="div">Division</option>
+          </select>
+          <input id="baA" class="diagram-input" style="min-width:200px;" placeholder="A (binary) e.g. 1011" />
+          <input id="baB" class="diagram-input" style="min-width:200px;" placeholder="B (binary) e.g. 0101" />
+        </div>
+        <div id="baTeachBox" class="dynamic-helper" aria-live="polite" style="margin-top:12px;"></div>
+        <div class="info-box" style="margin-top:8px;">
+          <div style="display:flex;justify-content:space-between;align-items:center;">
+            <button id="baPrev" class="button-link" disabled>← Prev</button>
+            <span id="baStepCount">Step 0 of 3</span>
+            <button id="baNext" class="button-link" disabled>Next →</button>
+          </div>
+        </div>
+      </section>
+
+      <section id="calculator" class="card" style="margin-top:16px;">
+        <h2>Calculator</h2>
+        <div class="info-box">
+          <p>Inputs are unsigned binary strings (e.g., 1011). We use big integers internally, so large values are supported.</p>
+        </div>
+        <div id="calc-grid" class="controls" style="grid-template-columns: 1fr; gap: 12px"></div>
+      </section>
+
+      <section id="restoring" class="card" style="margin-top:16px;">
+        <h2>Restoring</h2>
+        <div class="info-box">
+          <div class="info-split">
+            <div class="left">
+              <img src="images/restoring-division.png" alt="Restoring division diagram" class="adder-banner" />
+            </div>
+            <div class="right">
+              <h3>Restoring Division</h3>
+              <ol>
+                <li>Initialize quotient Q, divisor D, and remainder R = 0.</li>
+                <li>For each bit (MSB→LSB): left shift [R,Q] and subtract D from R.</li>
+                <li>If R < 0, set current quotient bit to 0 and restore by adding D back to R.</li>
+                <li>If R ≥ 0, set current quotient bit to 1 and keep R as is.</li>
+              </ol>
+            </div>
+          </div>
+        </div>
+        <div class="info-box" style="margin-top:10px;">
+          <div style="display:grid;grid-template-columns:1fr 1fr 0.5fr auto;gap:10px;align-items:center;">
+            <input id="resQ" class="diagram-input" placeholder="Dividend Q (binary) e.g. 101001" />
+            <input id="resM" class="diagram-input" placeholder="Divisor M (binary) e.g. 101" />
+            <input id="resBits" class="diagram-input" placeholder="Bits" value="8" />
+            <button id="resTeachBtn" class="button-link">Teach</button>
+          </div>
+          <div id="resTeachOut" class="dynamic-helper" style="margin-top:10px;" aria-live="polite"></div>
+        </div>
+      </section>
+
+      <section id="non" class="card" style="margin-top:16px;">
+        <h2>Non-restoring</h2>
+        <div class="info-box">
+          <div class="info-split">
+            <div class="left">
+              <img src="images/non-restoring-division.png" alt="Non-restoring division diagram" class="adder-banner" />
+            </div>
+            <div class="right">
+              <h3>Non-restoring Division</h3>
+              <ol>
+                <li>Initialize [R,Q]. If R ≥ 0, subtract D; else add D.</li>
+                <li>Shift left [R,Q] and set the new quotient bit based on the sign of R (1 if R ≥ 0, else 0).</li>
+                <li>Repeat for all bits; optionally correct a negative R by adding D at the end.</li>
+              </ol>
+            </div>
+          </div>
+        </div>
+        <div class="info-box" style="margin-top:10px;">
+          <div style="display:grid;grid-template-columns:1fr 1fr 0.5fr auto;gap:10px;align-items:center;">
+            <input id="nonQ" class="diagram-input" placeholder="Dividend Q (binary)" />
+            <input id="nonM" class="diagram-input" placeholder="Divisor M (binary)" />
+            <input id="nonBits" class="diagram-input" placeholder="Bits" value="8" />
+            <button id="nonTeachBtn" class="button-link">Teach</button>
+          </div>
+          <div id="nonTeachOut" class="dynamic-helper" style="margin-top:10px;" aria-live="polite"></div>
+        </div>
+      </section>
+
+      <section id="bitpair" class="card" style="margin-top:16px;">
+        <h2>Bitpair</h2>
+        <div class="info-box">
+          <h3>Bit-pair Recoding</h3>
+          <div class="info-center">
+            <img src="images/bit-pair-recoding.png" alt="Bit-pair recoding diagram" class="adder-banner" />
+          </div>
+          <ol>
+            <li>Recode multiplier in overlapping pairs to digits in {−2, −1, 0, +1, +2}.</li>
+            <li>Use ±M and ±2M partial products to reduce the number of non-zero operations.</li>
+            <li>Accumulate and shift appropriately to form the final product.</li>
+          </ol>
+        </div>
+        <div class="info-box" style="margin-top:10px;">
+          <div style="display:grid;grid-template-columns:1fr 1fr 0.5fr auto;gap:10px;align-items:center;">
+            <input id="bpM" class="diagram-input" placeholder="Multiplicand M (binary)" />
+            <input id="bpQ" class="diagram-input" placeholder="Multiplier Q (binary)" />
+            <input id="bpBits" class="diagram-input" placeholder="Bits" value="8" />
+            <button id="bpTeachBtn" class="button-link">Teach</button>
+          </div>
+          <div id="bpTeachOut" class="dynamic-helper" style="margin-top:10px;" aria-live="polite"></div>
+        </div>
+      </section>
+
+      <section id="booth" class="card" style="margin-top:16px;">
+        <h2>Booth</h2>
+        <div class="info-box">
+          <div class="info-split">
+            <div class="left">
+              <img src="images/booth-multiplication.png" alt="Booth multiplication diagram" class="adder-banner" />
+            </div>
+            <div class="right">
+              <h3>Booth Multiplication</h3>
+              <ol>
+                <li>Append a Q<sub>−1</sub> bit to the multiplier and scan pairs (Q<sub>0</sub>, Q<sub>−1</sub>).</li>
+                <li>If 01, add +M to accumulator; if 10, add −M; if 00 or 11, add 0.</li>
+                <li>Arithmetic shift right [ACC, Q, Q<sub>−1</sub>] each step.</li>
+                <li>Repeat for the number of multiplier bits; the product is [ACC, Q].</li>
+              </ol>
+            </div>
+          </div>
+        </div>
+        <div class="info-box" style="margin-top:10px;">
+          <div style="display:grid;grid-template-columns:1fr 1fr 0.5fr auto;gap:10px;align-items:center;">
+            <input id="boothM" class="diagram-input" placeholder="Multiplicand M (binary)" />
+            <input id="boothQ" class="diagram-input" placeholder="Multiplier Q (binary)" />
+            <input id="boothBits" class="diagram-input" placeholder="Bits" value="8" />
+            <button id="boothTeachBtn" class="button-link">Teach</button>
+          </div>
+          <div id="boothTeachOut" class="dynamic-helper" style="margin-top:10px;" aria-live="polite"></div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <p>COA Simulator • Built with HTML, CSS, and JavaScript.</p>
+    </footer>
+
+    <script src="./binary-arithmetic.js"></script>
+  </body>
+  </html>

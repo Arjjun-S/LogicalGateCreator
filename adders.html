@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Adders • COA Simulator</title>
+    <link rel="stylesheet" href="./style.css" />
+  </head>
+  <body>
+    <header class="site-header">
+      <h1>Adders</h1>
+      <p class="tagline">Half Adder, Full Adder, Ripple-Carry, Carry Lookahead</p>
+      <nav class="top-nav" aria-label="Primary">
+        <a href="./index.html">Home</a>
+        <a href="./logic.html">Logic Gates</a>
+        <a href="./diagram.html">Diagram Creator</a>
+        <a href="./number-system.html">Number System</a>
+        <a href="./adders.html" aria-current="page">Adders</a>
+        <a href="./binary-arithmetic.html">Binary Arithmetic</a>
+      </nav>
+        <nav class="sub-nav" aria-label="Adders Sub Navigation">
+          <a href="#ha">Half Adder</a>
+          <a href="#fa">Full Adder</a>
+          <a href="#rca">Ripple-Carry</a>
+          <a href="#cla">Carry Lookahead</a>
+        </nav>
+    </header>
+
+    <main class="page-main">
+      <section class="card" aria-labelledby="ha">
+        <h2 id="ha">Half Adder</h2>
+  <img src="images/half-adder.png" alt="Half Adder diagram" class="adder-banner" />
+        <div class="info-box">
+          <p>Combines two 1-bit inputs A and B to produce Sum and Carry.</p>
+          <ul>
+            <li>Boolean: Sum = A ⊕ B, Carry = A · B</li>
+          </ul>
+        </div>
+        <div id="ha-sim" class="controls" style="grid-template-columns:auto auto auto"></div>
+        <div class="info-box" style="margin-top:10px;">
+          <h3 style="margin:0 0 6px;">Truth table</h3>
+          <table class="truth-table" id="ha-table"></table>
+        </div>
+      </section>
+
+      <section class="card" aria-labelledby="fa" style="margin-top:16px;">
+        <h2 id="fa">Full Adder</h2>
+  <img src="images/full-adder.png" alt="Full Adder diagram" class="adder-banner" />
+        <div class="info-box">
+          <p>Adds three 1-bit inputs A, B, and Cin. Outputs Sum and Cout.</p>
+          <ul>
+            <li>Boolean: Sum = A ⊕ B ⊕ Cin</li>
+            <li>Cout = (A · B) + (Cin · (A ⊕ B))</li>
+          </ul>
+        </div>
+        <div id="fa-sim" class="controls" style="grid-template-columns:auto auto auto auto"></div>
+        <div class="info-box" style="margin-top:10px;">
+          <h3 style="margin:0 0 6px;">Truth table</h3>
+          <table class="truth-table" id="fa-table"></table>
+        </div>
+      </section>
+
+      <section class="card" aria-labelledby="rca" style="margin-top:16px;">
+        <h2 id="rca">Ripple-Carry Adder (RCA)</h2>
+  <img src="images/ripple-carry.png" alt="Ripple-Carry diagram" class="adder-banner" />
+        <div class="info-box">
+          <p>Chains multiple Full Adders. Carry ripples from least significant to most significant bit.</p>
+          <ul>
+            <li>Delay grows linearly with number of bits (O(n)).</li>
+            <li>Sumᵢ = Aᵢ ⊕ Bᵢ ⊕ Cᵢ, Carryᵢ₊₁ = AᵢBᵢ + Cᵢ(Aᵢ ⊕ Bᵢ)</li>
+          </ul>
+        </div>
+        <div class="info-box">
+          <p class="output-desc" style="text-align:left;">Try a 4-bit RCA below:</p>
+        </div>
+        <div id="rca-sim" class="controls" style="grid-template-columns:1fr; margin-top:10px;"></div>
+      </section>
+
+      <section class="card" aria-labelledby="cla" style="margin-top:16px;">
+        <h2 id="cla">Carry Lookahead Adder (CLA)</h2>
+  <img src="images/carry-lookahead.png" alt="Carry Lookahead diagram" class="adder-banner" />
+        <div class="info-box">
+          <p>Uses generate and propagate terms to compute carries in parallel.</p>
+          <ul>
+            <li>Generate: Gᵢ = Aᵢ · Bᵢ</li>
+            <li>Propagate: Pᵢ = Aᵢ ⊕ Bᵢ</li>
+            <li>C₁ = G₀ + P₀C₀, C₂ = G₁ + P₁G₀ + P₁P₀C₀, ...</li>
+          </ul>
+        </div>
+        <div class="info-box">
+          <p class="output-desc" style="text-align:left;">Explanations and boolean expressions are provided above. Diagram slot uses your PNG.</p>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <p>COA Simulator • Built with HTML, CSS, and JavaScript.</p>
+    </footer>
+
+    <script src="./adders.js"></script>
+  </body>
+  </html>

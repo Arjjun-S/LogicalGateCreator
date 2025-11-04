@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Number System • COA Simulator</title>
+    <link rel="stylesheet" href="./style.css" />
+  </head>
+  <body>
+    <header class="site-header">
+      <h1>Number System</h1>
+      <p class="tagline">Explanations and converters for Binary, Octal, Decimal, and Hex</p>
+      <nav class="top-nav" aria-label="Primary">
+        <a href="./index.html">Home</a>
+        <a href="./logic.html">Logic Gates</a>
+        <a href="./diagram.html">Diagram Creator</a>
+        <a href="./number-system.html" aria-current="page">Number System</a>
+        <a href="./adders.html">Adders</a>
+        <a href="./binary-arithmetic.html">Binary Arithmetic</a>
+      </nav>
+    </header>
+
+    <main class="page-main">
+      <section class="card" aria-labelledby="explain">
+        <h2 id="explain">Concepts</h2>
+        <div class="info-box">
+          <h3>Positional numeral systems</h3>
+          <img src="images/Number-System.png" alt="Place value chart" class="adder-banner" />
+          <p>Each digit has a place value. For a base b, an integer part is a sum of digits × powers of b: V = Σ dᵢ bᶦ. Fractional parts extend this with negative powers.</p>
+          <ul>
+            <li>Binary (base 2): digits 0–1</li>
+            <li>Octal (base 8): digits 0–7</li>
+            <li>Decimal (base 10): digits 0–9</li>
+            <li>Hex (base 16): digits 0–9, A–F</li>
+          </ul>
+        </div>
+      </section>
+
+      <section class="card" aria-labelledby="converter" style="margin-top:16px;">
+        <h2 id="converter">Converter and calculator</h2>
+  <img src="images/base-chart.png" alt="Base digits chart" class="adder-banner" />
+        <p class="output-desc" style="text-align:left">Edit any field below; the rest update automatically. Supports optional fractional parts (e.g., 101.101₂).</p>
+        <div id="converterGrid" class="controls" style="grid-template-columns: 1fr 1fr;">
+          <div class="input-group">
+            <label class="switch-label" for="bin">Binary</label>
+            <input id="bin" class="diagram-input" placeholder="e.g. 1011.01" />
+          </div>
+          <div class="input-group">
+            <label class="switch-label" for="oct">Octal</label>
+            <input id="oct" class="diagram-input" placeholder="e.g. 13.2" />
+          </div>
+          <div class="input-group">
+            <label class="switch-label" for="dec">Decimal</label>
+            <input id="dec" class="diagram-input" placeholder="e.g. 11.25" />
+          </div>
+          <div class="input-group">
+            <label class="switch-label" for="hex">Hex</label>
+            <input id="hex" class="diagram-input" placeholder="e.g. B.4" />
+          </div>
+        </div>
+        
+      </section>
+
+      <section class="card" id="helper-box" style="margin-top:16px;">
+        <h2>Teach</h2>
+        <p id="teachTitle" class="center-title" aria-live="polite">Conversion: Decimal → Binary</p>
+        <div class="controls" style="display:flex;gap:8px;flex-wrap:wrap;justify-content:center;align-items:center;">
+          <label class="switch-label" for="nsConv">Convert</label>
+          <select id="nsConv" class="diagram-input" style="max-width:260px;">
+            <option value="dec-bin" selected>Decimal → Binary</option>
+            <option value="dec-oct">Decimal → Octal</option>
+            <option value="dec-hex">Decimal → Hex</option>
+            <option value="bin-dec">Binary → Decimal (place value)</option>
+            <option value="bin-oct">Binary → Octal (group by 3)</option>
+            <option value="bin-hex">Binary → Hex (group by 4)</option>
+            <option value="oct-dec">Octal → Decimal (place value)</option>
+            <option value="hex-dec">Hex → Decimal (place value)</option>
+          </select>
+          <input id="teachInput" class="diagram-input" style="min-width:260px;" placeholder="Enter value (e.g., 924, 101.01, FE.8)" />
+        </div>
+        <div id="ns-dynamic" class="dynamic-helper" aria-live="polite" style="margin-top:12px;"></div>
+        <div class="info-box" style="margin-top:8px;">
+          <div style="display:flex;justify-content:space-between;align-items:center;">
+            <button id="nsPrev" class="button-link" disabled>← Prev</button>
+            <span id="nsStepCount">Step 0 of 3</span>
+            <button id="nsNext" class="button-link" disabled>Next →</button>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <p>COA Simulator • Built with HTML, CSS, and JavaScript.</p>
+    </footer>
+
+    <script src="./number-system.js"></script>
+  </body>
+  </html>

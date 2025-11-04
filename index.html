@@ -3,168 +3,63 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Virtual Logic Gate Creator</title>
+    <title>COA Simulator • Home</title>
     <link rel="stylesheet" href="./style.css" />
   </head>
   <body>
     <!-- Header -->
     <header class="site-header">
-      <h1>Virtual Logic Gate Creator</h1>
-      <p class="tagline">Interactive simulation for learning logic gates</p>
+      <h1>COA Simulator</h1>
+      <p class="tagline">Computer Organization and Architecture learning suite</p>
+      <nav class="top-nav" aria-label="Primary">
+        <a href="./index.html" aria-current="page">Home</a>
+        <a href="./logic.html">Logic Gates</a>
+        <a href="./diagram.html">Diagram Creator</a>
+        <a href="./number-system.html">Number System</a>
+        <a href="./adders.html">Adders</a>
+        <a href="./binary-arithmetic.html">Binary Arithmetic</a>
+      </nav>
     </header>
 
     <main class="page-main">
-      <!-- Gates Explorer Card -->
-      <section class="card" aria-labelledby="gates-explorer">
-        <h2 id="gates-explorer">Gates Explorer</h2>
-
-        <!-- Simulation Controls: Input A/B, Gate Select -->
-        <div class="controls" id="simControls">
-          <!-- Input A -->
-          <div class="input-group">
-            <label class="switch" aria-label="Toggle Input A">
-              <input type="checkbox" id="inputA" />
-              <span class="slider" aria-hidden="true"></span>
-            </label>
-            <label for="inputA" class="switch-label">Input A</label>
-          </div>
-
-          <!-- Input B (disabled for unary gates like NOT) -->
-          <div class="input-group" id="inputBGroup">
-            <label class="switch" aria-label="Toggle Input B">
-              <input type="checkbox" id="inputB" />
-              <span class="slider" aria-hidden="true"></span>
-            </label>
-            <label for="inputB" class="switch-label">Input B</label>
-          </div>
-
-          <!-- Gate dropdown -->
-          <div class="select-group">
-            <label for="gateSelect">Choose a gate</label>
-            <select id="gateSelect"></select>
-          </div>
-        </div>
-
-        <!-- Live Output Indicator -->
-        <div class="output" aria-live="polite" aria-atomic="true">
-          <div class="output-indicator false" id="outputIndicator">FALSE</div>
-          <p class="output-desc">Toggle inputs or change the gate to see the output.</p>
-        </div>
-
-        <!-- Gate description -->
-        <p id="gateDesc" class="output-desc" style="margin-top:12px"></p>
-
-        <!-- Truth table -->
-        <div class="output" style="margin-top: 12px;">
-          <div id="truthTable"></div>
-        </div>
-
-        <!-- Navigation to Diagram Creator -->
-        <div style="margin-top: 16px; text-align:center;">
-          <a class="button-link" href="./diagram.html" aria-label="Open Diagram Creator">Open Diagram Creator →</a>
-        </div>
+      <section class="card" aria-labelledby="welcome">
+        <h2 id="welcome">Welcome</h2>
+        <p class="output-desc" style="text-align:left">Explore core COA topics with interactive simulations, clean diagrams, and handy calculators.</p>
+  <div class="menu-flex">
+          <a class="menu-card" href="./logic.html">
+            <img class="menu-thumb" src="images/home-logic.jpeg" alt="Logic Gates" />
+            <h3>Logic Gates</h3>
+            <p>Toggle inputs and visualize outputs with truth tables for AND, OR, NOT, XOR, NAND, NOR, XNOR.</p>
+          </a>
+          <a class="menu-card" href="./diagram.html">
+            <img class="menu-thumb" src="images/home-diagram.jpg" alt="Diagram Creator" />
+            <h3>Diagram Creator</h3>
+            <p>Type Boolean expressions and render circuits. Uses your PNG gate images for visuals.</p>
+          </a>
+          <a class="menu-card" href="./number-system.html">
+            <img class="menu-thumb" src="images/home-number.png" alt="Number System" />
+            <h3>Number System</h3>
+            <p>Learn conversions and use the calculator across Binary, Decimal, Octal, and Hex.</p>
+          </a>
+          <a class="menu-card" href="./adders.html">
+            <img class="menu-thumb" src="images/home-adders.png" alt="Adders" />
+            <h3>Adders</h3>
+            <p>Half/Full Adder, Ripple-Carry, and Carry Lookahead with truth tables and boolean expressions.</p>
+          </a>
+          <a class="menu-card" href="./binary-arithmetic.html">
+            <img class="menu-thumb" src="images/home-binary.png" alt="Binary Arithmetic" />
+            <h3>Binary Arithmetic</h3>
+            <p>Add, subtract, multiply, and divide in binary, with learning boxes on classic algorithms.</p>
+          </a>
+  </div>
       </section>
     </main>
 
     <!-- Footer -->
     <footer class="site-footer">
-      <p>
-        Interactive simulation for learning logic gates • Built with HTML, CSS,
-        and JavaScript.
-      </p>
+      <p>COA Simulator • Built with HTML, CSS, and JavaScript.</p>
     </footer>
-
-    <script src="./script.js"></script>
-    <script>
-      // Populate the gate dropdown
-      const select = document.getElementById('gateSelect');
-      const inputA = document.getElementById('inputA');
-      const inputB = document.getElementById('inputB');
-      const inputBGroup = document.getElementById('inputBGroup');
-      const outputIndicator = document.getElementById('outputIndicator');
-
-      LogicGates.list.forEach(g => {
-        const opt = document.createElement('option');
-        opt.value = g.key;
-        opt.textContent = g.label;
-        select.appendChild(opt);
-      });
-
-      const gateDesc = document.getElementById('gateDesc');
-      const tableHost = document.getElementById('truthTable');
-
-      function renderTruthTable(key) {
-        const { meta, rows } = LogicGates.truthTable(key);
-        gateDesc.textContent = meta.desc;
-
-        // Build a simple table
-        const table = document.createElement('table');
-        table.className = 'truth-table';
-        const thead = document.createElement('thead');
-        const headerRow = document.createElement('tr');
-
-        const thA = document.createElement('th'); thA.textContent = 'A'; headerRow.appendChild(thA);
-        if (meta.arity === 2) { const thB = document.createElement('th'); thB.textContent = 'B'; headerRow.appendChild(thB); }
-        const thOut = document.createElement('th'); thOut.textContent = 'Output'; headerRow.appendChild(thOut);
-        thead.appendChild(headerRow);
-
-        const tbody = document.createElement('tbody');
-        for (const r of rows) {
-          const tr = document.createElement('tr');
-          const tdA = document.createElement('td'); tdA.textContent = r.A ? '1' : '0'; tr.appendChild(tdA);
-          if (meta.arity === 2) { const tdB = document.createElement('td'); tdB.textContent = r.B ? '1' : '0'; tr.appendChild(tdB); }
-          const tdO = document.createElement('td');
-          tdO.textContent = r.OUT ? '1' : '0';
-          tdO.className = r.OUT ? 'true' : 'false';
-          tr.appendChild(tdO);
-          tbody.appendChild(tr);
-        }
-
-        table.appendChild(thead);
-        table.appendChild(tbody);
-
-        tableHost.innerHTML = '';
-        tableHost.appendChild(table);
-      }
-
-      function syncGateUI() {
-        const key = select.value;
-        const meta = LogicGates.list.find(g => g.key === key);
-        const isUnary = meta && meta.arity === 1;
-        inputB.disabled = isUnary;
-        inputBGroup.classList.toggle('disabled', isUnary);
-        inputBGroup.setAttribute('aria-disabled', String(isUnary));
-      }
-
-      function computeOutput() {
-        const key = select.value;
-        const a = inputA.checked;
-        const b = inputB.checked;
-        const result = LogicGates.evaluate(key, a, b);
-        outputIndicator.textContent = result ? 'TRUE' : 'FALSE';
-        outputIndicator.classList.toggle('true', result);
-        outputIndicator.classList.toggle('false', !result);
-        outputIndicator.classList.remove('bump');
-        void outputIndicator.offsetWidth; // restart animation
-        outputIndicator.classList.add('bump');
-      }
-
-      function updateAll() {
-        syncGateUI();
-        computeOutput();
-        renderTruthTable(select.value);
-      }
-
-      ['change', 'input'].forEach(evt => {
-        inputA.addEventListener(evt, computeOutput);
-        inputB.addEventListener(evt, computeOutput);
-        select.addEventListener(evt, updateAll);
-      });
-
-      // Initial render
-      select.value = 'AND';
-      updateAll();
-    </script>
+    
   </body>
   
 </html>
